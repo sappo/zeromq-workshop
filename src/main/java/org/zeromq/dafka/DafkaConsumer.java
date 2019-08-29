@@ -189,10 +189,10 @@ public class DafkaConsumer extends SimpleActor {
 
         // HINT: Call receive on the actor pipe
       }
-      dafkaConsumer.terminate(actor);
     });
 
     Runtime.getRuntime().addShutdownHook(new Thread(() -> {
+      dafkaConsumer.terminate(actor);
       try {
         zmqThread.interrupt();
         zmqThread.join();

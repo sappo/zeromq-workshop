@@ -138,16 +138,16 @@ public class DafkaBeacon extends SimpleActor
     @Override
     public boolean finished(Socket pipe)
     {
+        stopBeacon();
         timerThreadRunning = false;
         synchronized (timerThread) {
             try {
-                timerThread.wait();
+                timerThread.join();
             }
             catch (InterruptedException exception) {
                 log.error("Failed to stop timer thread", exception);
             }
         }
-        stopBeacon();
         return true;
     }
 

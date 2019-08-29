@@ -162,13 +162,10 @@ public class DafkaStore extends SimpleActor
         final Thread zmqThread = new Thread(() -> {
             while (!Thread.currentThread().isInterrupted()) {
             }
-
-            boolean rc = actor.sign();
-            assert (rc);
-            dafkaStore.terminate(actor);
         });
 
         Runtime.getRuntime().addShutdownHook(new Thread(() -> {
+            dafkaStore.terminate(actor);
             try {
                 zmqThread.interrupt();
                 zmqThread.join();
